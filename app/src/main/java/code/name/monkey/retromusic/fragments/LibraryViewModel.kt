@@ -27,6 +27,7 @@ import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.interfaces.IMusicServiceEventListener
 import code.name.monkey.retromusic.model.*
 import code.name.monkey.retromusic.repository.RealRepository
+import code.name.monkey.retromusic.service.MusicService
 import code.name.monkey.retromusic.util.DensityUtil
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.logD
@@ -180,7 +181,7 @@ class LibraryViewModel(
     fun shuffleSongs() = viewModelScope.launch(IO) {
         val songs = repository.allSongs()
         withContext(Main) {
-            MusicPlayerRemote.openAndShuffleQueue(songs, true)
+            MusicPlayerRemote.openAndShuffleQueue(songs, true, MusicService.SHUFFLE_MODE_SHUFFLE)
         }
     }
 

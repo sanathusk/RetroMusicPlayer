@@ -93,6 +93,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import okhttp3.internal.immutableListOf
 import org.koin.java.KoinJavaComponent.get
 import java.util.*
 
@@ -287,8 +288,18 @@ class MusicService : MediaBrowserServiceCompat(),
         setupMediaSession()
 
         uiThreadHandler = Handler(Looper.getMainLooper())
-        ContextCompat.registerReceiver(this, widgetIntentReceiver, IntentFilter(APP_WIDGET_UPDATE), ContextCompat.RECEIVER_NOT_EXPORTED)
-        ContextCompat.registerReceiver(this, updateFavoriteReceiver, IntentFilter(FAVORITE_STATE_CHANGED), ContextCompat.RECEIVER_NOT_EXPORTED)
+        ContextCompat.registerReceiver(
+            this,
+            widgetIntentReceiver,
+            IntentFilter(APP_WIDGET_UPDATE),
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
+        ContextCompat.registerReceiver(
+            this,
+            updateFavoriteReceiver,
+            IntentFilter(FAVORITE_STATE_CHANGED),
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
         registerReceiver(lockScreenReceiver, IntentFilter(Intent.ACTION_SCREEN_ON))
         sessionToken = mediaSession?.sessionToken
         notificationManager = getSystemService()
@@ -499,7 +510,7 @@ class MusicService : MediaBrowserServiceCompat(),
         when (shuffleMode) {
             SHUFFLE_MODE_SHUFFLE -> {
                 this.shuffleMode = shuffleMode
-                makeShuffleList(playingQueue, getPosition())
+                makeShuffleList(playingQueue, getPosition(), shuffleMode)
                 position = 0
             }
 
@@ -759,8 +770,8 @@ class MusicService : MediaBrowserServiceCompat(),
             originalPlayingQueue = ArrayList(playingQueue)
             this.playingQueue = ArrayList(originalPlayingQueue)
             var position = startPosition
-            if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
-                makeShuffleList(this.playingQueue, startPosition)
+            if (SHUFFLE_MODES.contains(shuffleMode)) {
+                makeShuffleList(this.playingQueue, startPosition, shuffleMode)
                 position = 0
             }
             if (startPlaying) {
@@ -1412,6 +1423,8 @@ class MusicService : MediaBrowserServiceCompat(),
         const val SAVED_REPEAT_MODE = "REPEAT_MODE"
         const val SHUFFLE_MODE_NONE = 0
         const val SHUFFLE_MODE_SHUFFLE = 1
+        const val SHUFFLE_MODE_ALBUM = 2
+        val SHUFFLE_MODES = immutableListOf(SHUFFLE_MODE_SHUFFLE, SHUFFLE_MODE_ALBUM);
         const val REPEAT_MODE_NONE = 0
         const val REPEAT_MODE_ALL = 1
         const val REPEAT_MODE_THIS = 2

@@ -420,18 +420,11 @@ class GradientPlayerFragment : AbsPlayerFragment(R.layout.fragment_gradient_play
     }
 
     fun updateShuffleState() {
-        when (MusicPlayerRemote.shuffleMode) {
-            MusicService.SHUFFLE_MODE_SHUFFLE ->
+        val playBackControlColor = if (MusicService.SHUFFLE_MODES.contains(MusicPlayerRemote.shuffleMode)) lastPlaybackControlsColor else lastDisabledPlaybackControlsColor
                 binding.shuffleButton.setColorFilter(
-                    lastPlaybackControlsColor,
+                    playBackControlColor,
                     PorterDuff.Mode.SRC_IN
                 )
-
-            else -> binding.shuffleButton.setColorFilter(
-                lastDisabledPlaybackControlsColor,
-                PorterDuff.Mode.SRC_IN
-            )
-        }
     }
 
     private fun setUpRepeatButton() {

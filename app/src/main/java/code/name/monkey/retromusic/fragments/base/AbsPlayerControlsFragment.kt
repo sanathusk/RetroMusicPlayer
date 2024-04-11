@@ -221,6 +221,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
         shuffleButton.setColorFilter(
             when (MusicPlayerRemote.shuffleMode) {
                 MusicService.SHUFFLE_MODE_SHUFFLE -> lastPlaybackControlsColor
+                MusicService.SHUFFLE_MODE_ALBUM -> lastPlaybackControlsColor
                 else -> lastDisabledPlaybackControlsColor
             }, PorterDuff.Mode.SRC_IN
         )

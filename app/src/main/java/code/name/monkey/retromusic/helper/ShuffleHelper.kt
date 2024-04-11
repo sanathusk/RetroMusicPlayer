@@ -15,17 +15,30 @@
 package code.name.monkey.retromusic.helper
 
 import code.name.monkey.retromusic.model.Song
+import code.name.monkey.retromusic.service.MusicService
 
 object ShuffleHelper {
 
-    fun makeShuffleList(listToShuffle: MutableList<Song>, current: Int) {
+    fun makeShuffleList(listToShuffle: MutableList<Song>, current: Int, shuffleMode:Int) {
         if (listToShuffle.isEmpty()) return
         if (current >= 0) {
             val song = listToShuffle.removeAt(current)
-            listToShuffle.shuffle()
+            when(shuffleMode) {
+                MusicService.SHUFFLE_MODE_ALBUM -> shuffleAlbums(listToShuffle);
+                else -> listToShuffle.shuffle()
+            }
             listToShuffle.add(0, song)
         } else {
-            listToShuffle.shuffle()
+            when(shuffleMode) {
+                MusicService.SHUFFLE_MODE_ALBUM -> shuffleAlbums(listToShuffle);
+                else -> listToShuffle.shuffle()
+            }
         }
+    }
+    private fun shuffleAlbums(listToShuffle: MutableList<Song>){
+        val albums = listToShuffle.groupBy { it.albumId }
+        val shuffledAlbums = albums.keys.shuffled()
+        listToShuffle.clear()
+        shuffledAlbums.forEach { listToShuffle.addAll(albums[it] ?: emptyList()) }
     }
 }

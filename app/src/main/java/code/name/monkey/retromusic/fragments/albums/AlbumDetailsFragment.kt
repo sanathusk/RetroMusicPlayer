@@ -61,6 +61,7 @@ import code.name.monkey.retromusic.model.Artist
 import code.name.monkey.retromusic.network.Result
 import code.name.monkey.retromusic.network.model.LastFmAlbum
 import code.name.monkey.retromusic.repository.RealRepository
+import code.name.monkey.retromusic.service.MusicService
 import code.name.monkey.retromusic.util.*
 import com.bumptech.glide.Glide
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -151,7 +152,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         binding.fragmentAlbumContent.shuffleAction.setOnClickListener {
             MusicPlayerRemote.openAndShuffleQueue(
                 album.songs,
-                true
+                true, MusicService.SHUFFLE_MODE_ALBUM
             )
         }
 

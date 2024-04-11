@@ -26,6 +26,7 @@ import code.name.monkey.retromusic.glide.playlistPreview.PlaylistPreview
 import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.helper.menu.PlaylistMenuHelper
 import code.name.monkey.retromusic.model.Song
+import code.name.monkey.retromusic.service.MusicService
 import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.ThemedFastScroller
 import com.bumptech.glide.Glide
@@ -106,7 +107,7 @@ class PlaylistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playli
         }
         binding.shuffleButton.apply {
             setOnClickListener {
-                MusicPlayerRemote.openAndShuffleQueue(playlistSongAdapter.dataSet, true)
+                MusicPlayerRemote.openAndShuffleQueue(playlistSongAdapter.dataSet,true, MusicService.SHUFFLE_MODE_SHUFFLE)
             }
             elevatedAccentColor()
         }

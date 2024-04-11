@@ -181,17 +181,11 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     }
 
     fun updateShuffleState() {
-        when (MusicPlayerRemote.shuffleMode) {
-            MusicService.SHUFFLE_MODE_SHUFFLE -> binding.shuffleButton.setColorFilter(
-                lastPlaybackControlsColor,
+        val playBackControlColor = if (MusicService.SHUFFLE_MODES.contains(MusicPlayerRemote.shuffleMode))  lastPlaybackControlsColor else lastDisabledPlaybackControlsColor
+           binding.shuffleButton.setColorFilter(
+               playBackControlColor,
                 PorterDuff.Mode.SRC_IN
             )
-
-            else -> binding.shuffleButton.setColorFilter(
-                lastDisabledPlaybackControlsColor,
-                PorterDuff.Mode.SRC_IN
-            )
-        }
     }
 
     private fun updateRepeatState() {

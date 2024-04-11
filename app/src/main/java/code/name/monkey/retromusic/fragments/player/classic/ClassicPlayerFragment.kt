@@ -536,18 +536,11 @@ class ClassicPlayerFragment : AbsPlayerFragment(R.layout.fragment_classic_player
     }
 
     fun updateShuffleState() {
-        when (MusicPlayerRemote.shuffleMode) {
-            MusicService.SHUFFLE_MODE_SHUFFLE ->
+        val playBackControlColor = if (MusicService.SHUFFLE_MODES.contains(MusicPlayerRemote.shuffleMode)) lastPlaybackControlsColor else lastDisabledPlaybackControlsColor
                 binding.playerControlsContainer.shuffleButton.setColorFilter(
-                    lastPlaybackControlsColor,
+                    playBackControlColor,
                     PorterDuff.Mode.SRC_IN
                 )
-
-            else -> binding.playerControlsContainer.shuffleButton.setColorFilter(
-                lastDisabledPlaybackControlsColor,
-                PorterDuff.Mode.SRC_IN
-            )
-        }
     }
 
     private fun setUpRepeatButton() {

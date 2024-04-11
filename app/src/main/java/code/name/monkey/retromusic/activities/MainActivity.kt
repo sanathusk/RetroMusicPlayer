@@ -146,8 +146,9 @@ class MainActivity : AbsCastActivity() {
                 intent.action == MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH
             ) {
                 val songs: List<Song> = getSongs(intent.extras!!)
-                if (MusicPlayerRemote.shuffleMode == MusicService.SHUFFLE_MODE_SHUFFLE) {
-                    MusicPlayerRemote.openAndShuffleQueue(songs, true)
+//                if (MusicPlayerRemote.shuffleMode == MusicService.SHUFFLE_MODE_SHUFFLE) {
+                if (MusicService.SHUFFLE_MODES.contains(MusicPlayerRemote.shuffleMode)) {
+                    MusicPlayerRemote.openAndShuffleQueue(songs, true,MusicPlayerRemote.shuffleMode )
                 } else {
                     MusicPlayerRemote.openQueue(songs, 0, true)
                 }

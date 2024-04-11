@@ -22,6 +22,7 @@ import code.name.monkey.retromusic.extensions.accentColor
 import code.name.monkey.retromusic.extensions.accentOutlineColor
 import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.model.Song
+import code.name.monkey.retromusic.service.MusicService
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.RetroUtil
 import com.google.android.material.button.MaterialButton
@@ -52,7 +53,7 @@ class ShuffleButtonSongAdapter(
             }
             viewHolder.shuffleAction?.let {
                 it.setOnClickListener {
-                    MusicPlayerRemote.openAndShuffleQueue(dataSet, true)
+                    MusicPlayerRemote.openAndShuffleQueue(dataSet, true, MusicService.SHUFFLE_MODE_SHUFFLE )
                 }
                 it.accentColor()
             }
@@ -71,7 +72,7 @@ class ShuffleButtonSongAdapter(
 
         override fun onClick(v: View?) {
             if (itemViewType == OFFSET_ITEM) {
-                MusicPlayerRemote.openAndShuffleQueue(dataSet, true)
+                MusicPlayerRemote.openAndShuffleQueue(dataSet, true, MusicService.SHUFFLE_MODE_SHUFFLE)
                 return
             }
             super.onClick(v)

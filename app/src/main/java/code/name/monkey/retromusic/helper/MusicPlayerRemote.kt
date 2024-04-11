@@ -223,7 +223,7 @@ object MusicPlayerRemote : KoinComponent {
     }
 
     @JvmStatic
-    fun openAndShuffleQueue(queue: List<Song>, startPlaying: Boolean) {
+    fun openAndShuffleQueue(queue: List<Song>, startPlaying: Boolean, shuffleMode: Int) {
         var startPosition = 0
         if (queue.isNotEmpty()) {
             startPosition = Random().nextInt(queue.size)
@@ -236,7 +236,7 @@ object MusicPlayerRemote : KoinComponent {
             ) && musicService != null
         ) {
             musicService?.openQueue(queue, startPosition, startPlaying)
-            setShuffleMode(MusicService.SHUFFLE_MODE_SHUFFLE)
+            setShuffleMode(shuffleMode)
         }
     }
 

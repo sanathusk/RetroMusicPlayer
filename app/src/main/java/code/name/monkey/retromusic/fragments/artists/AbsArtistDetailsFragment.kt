@@ -39,6 +39,7 @@ import code.name.monkey.retromusic.model.Artist
 import code.name.monkey.retromusic.network.Result
 import code.name.monkey.retromusic.network.model.LastFmArtist
 import code.name.monkey.retromusic.repository.RealRepository
+import code.name.monkey.retromusic.service.MusicService
 import code.name.monkey.retromusic.util.*
 import com.bumptech.glide.Glide
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -96,7 +97,7 @@ abstract class AbsArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragm
             setOnClickListener { MusicPlayerRemote.openQueue(artist.sortedSongs, 0, true) }
         }
         binding.fragmentArtistContent.shuffleAction.apply {
-            setOnClickListener { MusicPlayerRemote.openAndShuffleQueue(artist.songs, true) }
+            setOnClickListener { MusicPlayerRemote.openAndShuffleQueue(artist.songs, true, MusicService.SHUFFLE_MODE_SHUFFLE) }
         }
 
         binding.fragmentArtistContent.biographyText.setOnClickListener {
